@@ -1,0 +1,6 @@
+<div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= percentage %>%; min-width: 3em;">
+    <span><%= number_to_percentage(percentage, precision: 1, strip_insignificant_zeros: true) %> Complete</span>
+  </div>
+</div>
+<%= render partial: 'reload' %>

@@ -1,0 +1,3 @@
+module ActiveWaiter
+  VERSION = "0.0.1"
+end

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ActiveWaiter</title>
+  <%= stylesheet_link_tag    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css", media: "all" %>
+  <%= stylesheet_link_tag    "active_waiter/application", media: "all" %>
+  <%= javascript_include_tag "active_waiter/application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="header">
+            <h2/>
+          </div>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
