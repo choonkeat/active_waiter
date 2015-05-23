@@ -35,8 +35,8 @@ def index
   respond_to do |format|
     format.html
     format.pdf {
-      # yay ActiveWaiter.enqueue
-      redirect_to active_waiter_path(ActiveWaiter.enqueue(ExportPdfJob, @things, current_user))
+      uid = ActiveWaiter.enqueue(ExportPdfJob, @things, current_user)
+      redirect_to active_waiter_path(uid)
     }
   end
 end
