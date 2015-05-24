@@ -23,7 +23,7 @@ class ActiveWaiter::JobTest < Minitest::Test
     ActiveWaiter.stub :next_uuid, uid = "hello" do
       perform_enqueued_jobs do
         assert_equal uid, ActiveWaiter.enqueue(DummyJob, *arguments)
-        assert_equal Hash(percentage: 100, redirect_to: expected_return_value), ActiveWaiter.read(uid)
+        assert_equal Hash(percentage: 100, link_to: expected_return_value), ActiveWaiter.read(uid)
       end
     end
   end

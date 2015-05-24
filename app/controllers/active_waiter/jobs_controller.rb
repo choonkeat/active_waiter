@@ -6,8 +6,8 @@ module ActiveWaiter
       data = ActiveWaiter.read(params[:id])
       return on_not_found(data) unless data.respond_to?(:[])
       return on_error(data)     if data[:error]
-      return on_redirect(data)  if data[:redirect_to]
-      return on_link_to(data)   if data[:link_to]
+      return on_link_to(data)   if data[:link_to] && params[:download]
+      return on_redirect(data)  if data[:link_to]
       return on_progress(data)  if data[:percentage]
     end
 
@@ -22,7 +22,7 @@ module ActiveWaiter
       end
 
       def on_redirect(data)
-        redirect_to data[:redirect_to]
+        redirect_to data[:link_to]
       end
 
       def on_link_to(data)

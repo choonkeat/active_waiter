@@ -47,6 +47,12 @@ end
 mount ActiveWaiter::Engine => "/active_waiter(/:id)"
 ```
 
+When the job completes, the user will be redirected to the `url` returned by the job. However, if you want the user to be presented with a download link, add `download: 1` params instead
+
+``` ruby
+redirect_to active_waiter_path(uid, download: 1)
+```
+
 ![active_waiter mov](https://cloud.githubusercontent.com/assets/473/7785141/c4667734-01b4-11e5-8974-3a3b00b3a4b6.gif)
 
 And we need to add a bit of code into your `ActiveJob` class
@@ -78,11 +84,6 @@ class ExportPdfJob < ActiveJob::Base
     # (b)
     update_active_waiter error: e.to_s
   end
-
-  # (c)
-  def self.download?
-    true
-  end
 end
 ```
 
@@ -90,4 +91,3 @@ Optionally, you can also
 
 - a) report progress while your job runs, using `update_active_waiter(percentage:)`
 - b) report if there were any errors, using `update_active_waiter(error:)`
-- c) indicate if you want the user to "download" the url manually or be redirected there automatically (default: redirect)

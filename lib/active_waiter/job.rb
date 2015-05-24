@@ -5,10 +5,9 @@ module ActiveWaiter::Job
     around_perform do |job, block|
       @active_waiter_options = job.arguments.shift
       begin
-        key = (self.class.try(:download?) ? :link_to : :redirect_to)
         ::ActiveWaiter.write(@active_waiter_options[:uid], {
           percentage: 100,
-          key => block.call,
+          link_to: block.call,
         })
       rescue Exception
         ::ActiveWaiter.write(@active_waiter_options[:uid], {
@@ -23,6 +22,6 @@ module ActiveWaiter::Job
     ::ActiveWaiter.write(@active_waiter_options[:uid], {
       percentage: percentage && [percentage, 99].min,
       error: error,
-    })
+    }) if @active_waiter_options.try(:[], :uid)
   end
 end

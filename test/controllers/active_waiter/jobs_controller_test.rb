@@ -9,12 +9,6 @@ class RedirectJob < ActiveJob::Base
   end
 end
 
-class DownloadJob < RedirectJob
-  def self.download?
-    true
-  end
-end
-
 class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
 
@@ -34,7 +28,7 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_started
     ActiveWaiter.stub :next_uuid, uid do
-      assert_equal uid, ActiveWaiter.enqueue(DownloadJob)
+      assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
       get '/active_waiter', id: uid
       assert_equal 200, status
       assert_match "Please wait", document_root_element.to_s
@@ -55,11 +49,11 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
     assert_match "42%", document_root_element.to_s
   end
 
-  def test_show_completed
+  def test_show_completed_download
     ActiveWaiter.stub :next_uuid, uid do
       perform_enqueued_jobs do
-        assert_equal uid, ActiveWaiter.enqueue(DownloadJob)
-        get '/active_waiter', id: uid
+        assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
+        get '/active_waiter', id: uid, download: 1
         assert_equal 200, status
         link = document_root_element.css("a[href='http://other.com/12345']").first
         assert link, "missing hyperlink to returned value"
