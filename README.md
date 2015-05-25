@@ -94,14 +94,14 @@ Optionally, you can also
 ### Configuration
 
 By default, `ActiveWaiter` uses a simple Bootstrap layout. To use your application's layout, configure:
- 
+
 ```ruby
 ActiveWaiter.configure do |config|
   layout 'layouts/application
 end
 ```
 
-Next, prefix any routes used in your application's layout with `main_app.`, e.g. `main_app.sign_in_path`.   
+Next, prefix any routes used in your application's layout with `main_app.`, e.g. `main_app.sign_in_path`.
 
-This is required because `ActiveWaiter` is a Rails Engine mounted into your application, 
+This is required because `ActiveWaiter` is a Rails Engine mounted into your application,
 and it doesn't know about the routes declared within your application.
