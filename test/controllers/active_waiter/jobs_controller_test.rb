@@ -89,18 +89,6 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_configuration_helper
-    ActiveWaiter.configure do |config|
-      config.helper = MockHelper
-    end
-
-    ActiveWaiter.stub :next_uuid, uid do
-      assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
-      do_request id: uid
-      assert_includes @controller._helpers.included_modules, MockHelper
-    end
-  end
-
   private
 
     def do_request(id:, download: nil)
