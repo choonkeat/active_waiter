@@ -1,4 +1,5 @@
 require "active_waiter/engine"
+require "active_waiter/configuration"
 require "active_waiter/job"
 
 module ActiveWaiter
