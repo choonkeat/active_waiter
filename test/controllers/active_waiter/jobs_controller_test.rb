@@ -9,10 +9,14 @@ class RedirectJob < ActiveJob::Base
   end
 end
 
+module MockHelper
+end
+
 class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
 
   def setup
+    ActiveWaiter.configuration = nil
     @routes = ActiveWaiter::Engine.routes
   end
 
@@ -32,16 +36,6 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
       do_request id: uid
       assert_equal 200, status
       assert_match "Please wait", document_root_element.to_s
-    end
-  end
-
-  def test_renders_application_layout
-    ActiveWaiter.stub :next_uuid, uid do
-      assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
-      do_request id: uid
-      assert_equal 200, status
-      assert_template :show
-      assert_template layout: "layouts/application"
     end
   end
 
@@ -80,6 +74,30 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
         assert_equal 302, status
         assert_equal "http://other.com/12345", response.location
       end
+    end
+  end
+
+  def test_configuration_layout
+    ActiveWaiter.configure do |config|
+      config.layout = 'layouts/application'
+    end
+
+    ActiveWaiter.stub :next_uuid, uid do
+      assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
+      do_request id: uid
+      assert_template layout: "layouts/application"
+    end
+  end
+
+  def test_configuration_helper
+    ActiveWaiter.configure do |config|
+      config.helper = MockHelper
+    end
+
+    ActiveWaiter.stub :next_uuid, uid do
+      assert_equal uid, ActiveWaiter.enqueue(RedirectJob)
+      do_request id: uid
+      assert_includes @controller._helpers.included_modules, MockHelper
     end
   end
 
