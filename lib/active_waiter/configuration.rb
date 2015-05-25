@@ -12,11 +12,10 @@ module ActiveWaiter
   end
 
   class Configuration
-    attr_accessor :layout, :helper
+    attr_accessor :layout
 
     def initialize
       @layout = "active_waiter/layouts/application".freeze
-      @helper = nil
     end
   end
 end
