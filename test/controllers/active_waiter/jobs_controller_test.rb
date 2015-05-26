@@ -83,6 +83,8 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
       do_request id: uid
       assert_template layout: "layouts/application"
     end
+  ensure
+    ActiveWaiter.configuration = nil
   end
 
   private
