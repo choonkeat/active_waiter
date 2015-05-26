@@ -94,10 +94,10 @@ Optionally, you can also
 ### Configuration
 
 By default, `ActiveWaiter` uses a simple Bootstrap layout. To use your application's layout, configure:
- 
+
 ```ruby
 ActiveWaiter.configure do |config|
-  layout 'layouts/application
+  config.layout = "layouts/application"
 end
 ```
 
