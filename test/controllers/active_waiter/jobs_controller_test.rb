@@ -9,14 +9,10 @@ class RedirectJob < ActiveJob::Base
   end
 end
 
-module MockHelper
-end
-
 class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
 
   def setup
-    ActiveWaiter.configuration = nil
     @routes = ActiveWaiter::Engine.routes
   end
 

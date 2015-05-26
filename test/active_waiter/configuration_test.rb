@@ -6,7 +6,7 @@ class ConfigurationTest < Minitest::Test
   end
 
   def test_configuration_defaults
-    assert_equal "active_waiter/layouts/application", ActiveWaiter.configuration.layout
+    assert_nil ActiveWaiter.configuration.layout
   end
 
   def test_configuration_layout
