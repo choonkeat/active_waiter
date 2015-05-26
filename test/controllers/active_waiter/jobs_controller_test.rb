@@ -22,7 +22,7 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_non_existent
     assert_raises ActionController::RoutingError do
-      do_request   id: "nosuchjob"
+      do_request id: "nosuchjob"
     end
   end
 
