@@ -29,7 +29,7 @@ But how do you get that PDF into the hands of your users now? Email? Push notifi
 
 ## Solution
 
-Let `ActiveWaiter` enqueue that job instead and redirect to it's progress tracking page.
+Let `ActiveWaiter` enqueue that job instead and redirect to its progress tracking page.
 
 ``` ruby
 def index
