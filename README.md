@@ -1,5 +1,7 @@
 # ActiveWaiter
 
+[![Build Status](https://travis-ci.org/choonkeat/active_waiter.svg?branch=master)](https://travis-ci.org/choonkeat/active_waiter)
+
 A simple mechanism allowing your users to wait for the completion of your `ActiveJob`
 
 ## Scenario
