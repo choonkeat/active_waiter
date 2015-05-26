@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support Ruby 2.0+ [PR#10](https://github.com/choonkeat/active_waiter/pull/10)
+
 - Add configuration option for layout [PR#1](https://github.com/choonkeat/active_waiter/pull/1/)
 
 ## 0.1.0 - 2015.05.24

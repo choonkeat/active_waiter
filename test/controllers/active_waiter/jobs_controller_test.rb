@@ -9,14 +9,10 @@ class RedirectJob < ActiveJob::Base
   end
 end
 
-module MockHelper
-end
-
 class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
 
   def setup
-    ActiveWaiter.configuration = nil
     @routes = ActiveWaiter::Engine.routes
   end
 
@@ -87,12 +83,14 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
       do_request id: uid
       assert_template layout: "layouts/application"
     end
+  ensure
+    ActiveWaiter.configuration = nil
   end
 
   private
 
-    def do_request(id:, download: nil)
-      get '/active_waiter', id: id, download: download
+    def do_request(params)
+      get '/active_waiter', params
     end
 
     def uid

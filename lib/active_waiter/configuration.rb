@@ -1,21 +1,17 @@
 module ActiveWaiter
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
+  class << self
+    attr_writer :configuration
 
-  def self.configuration=(configuration)
-    @configuration = configuration
-  end
+    def configuration
+      @configuration ||= Configuration.new
+    end
 
-  def self.configure
-    yield configuration
+    def configure
+      yield configuration
+    end
   end
 
   class Configuration
     attr_accessor :layout
-
-    def initialize
-      @layout = "active_waiter/layouts/application".freeze
-    end
   end
 end

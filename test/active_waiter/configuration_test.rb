@@ -1,12 +1,8 @@
 require 'test_helper'
 
 class ConfigurationTest < Minitest::Test
-  def teardown
-    ActiveWaiter.configuration = nil
-  end
-
   def test_configuration_defaults
-    assert_equal "active_waiter/layouts/application", ActiveWaiter.configuration.layout
+    assert_nil ActiveWaiter.configuration.layout
   end
 
   def test_configuration_layout
@@ -15,5 +11,7 @@ class ConfigurationTest < Minitest::Test
     end
 
     assert_equal "layouts/application", ActiveWaiter.configuration.layout
+  ensure
+    ActiveWaiter.configuration = nil
   end
 end
