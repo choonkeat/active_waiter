@@ -20,7 +20,6 @@ def index
 end
 ```
 
-
 But how do you get that PDF into the hands of your users now? Email? Push notification? Manual reload?
 
 > You have no PDF ready for download (yet). Please reload.
@@ -91,3 +90,18 @@ Optionally, you can also
 
 - a) report progress while your job runs, using `update_active_waiter(percentage:)`
 - b) report if there were any errors, using `update_active_waiter(error:)`
+
+### Configuration
+
+By default, `ActiveWaiter` uses a simple Bootstrap layout. To use your application's layout, configure:
+
+```ruby
+ActiveWaiter.configure do |config|
+  config.layout = "layouts/application"
+end
+```
+
+Next, prefix any routes used in your application's layout with `main_app.`, e.g. `main_app.sign_in_path`.   
+
+This is required because `ActiveWaiter` is a Rails Engine mounted into your application, 
+and it doesn't know about the routes declared within your application.
