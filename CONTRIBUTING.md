@@ -1,10 +1,10 @@
-# Contributing
+## Contributing
 
-## Development
+### Development
 
 Run `bundle` to install development dependencies.
 
-### Running Tests
+#### Running Tests
 
 ```
 $ rake
