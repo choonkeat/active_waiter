@@ -91,7 +91,7 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-    def do_request(id:, download: nil)
+    def do_request(id: nil, download: nil)
       get '/active_waiter', id: id, download: download
     end
 
