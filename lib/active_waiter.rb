@@ -1,6 +1,7 @@
 require "active_waiter/engine"
 require "active_waiter/configuration"
 require "active_waiter/job"
+require "active_waiter/enumerable_job"
 
 module ActiveWaiter
   class << self

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add ActiveWaiter::EnumerableJob as template for jobs that loop through resultset
+
 ## 0.2.0 - 2015.05.26
 
 - Support Ruby 2.0+ [PR#10](https://github.com/choonkeat/active_waiter/pull/10)
