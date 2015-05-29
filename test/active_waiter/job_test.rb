@@ -3,7 +3,7 @@ require 'test_helper'
 class DummyJob < ActiveJob::Base
   include ActiveWaiter::Job
 
-  def perform(one, two, three: 3, four: [1,2,3,4])
+  def perform(one, two, three: 3, four: [1, 2, 3, 4])
     [one, two, three, four].to_json
   end
 end
