@@ -12,13 +12,18 @@ module ActiveWaiter::EnumerableJob
       update_active_waiter(percentage: (100 * (index+1.to_f) / items_count))
     end
     after
-    return result
+    result
   end
 
-  def before(*args); end # called once with arguments of `perform`
+  def before(*_args); end # called once with arguments of `perform`
+
   def enumerable; [] end # an Enumerable interface
+
   def items_count; 1 end # called 0-n times, depending on enumerable
-  def foreach(item); end # called 0-n times, depending on enumerable
+
+  def foreach(_item); end # called 0-n times, depending on enumerable
+
   def after;         end # called once
+
   def result;        end # called once
 end

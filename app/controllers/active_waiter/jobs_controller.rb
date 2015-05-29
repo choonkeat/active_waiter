@@ -13,7 +13,7 @@ module ActiveWaiter
 
     protected
 
-      def on_not_found(data)
+      def on_not_found(_data)
         raise ActionController::RoutingError.new('Not Found')
       end
 
