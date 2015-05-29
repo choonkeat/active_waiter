@@ -108,6 +108,13 @@ Next, prefix any routes used in your application's layout with `main_app.`, e.g.
 This is required because `ActiveWaiter` is a Rails Engine mounted into your application,
 and it doesn't know about the routes declared within your application.
 
+#### Exceptions
+
+When your job gets an exception, the error message will be written in the error message and passed along
+to the user. If your job has a method `suppress_exceptions` that returns a truthy value (default false),
+`ActiveWaiter::Job` will swallow the exception and not raise it - this means there will be no retry by
+`ActiveJob`.
+
 ### Common Jobs
 
 #### ActiveWaiter::EnumerableJob
