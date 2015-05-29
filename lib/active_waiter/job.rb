@@ -13,7 +13,7 @@ module ActiveWaiter::Job
         ::ActiveWaiter.write(@active_waiter_options[:uid], {
           error: $!.to_s,
         })
-        raise
+        raise unless suppress_exceptions
       end
     end
   end
@@ -24,4 +24,6 @@ module ActiveWaiter::Job
       error: error,
     }) if @active_waiter_options.try(:[], :uid)
   end
+
+  def suppress_exceptions; false; end
 end

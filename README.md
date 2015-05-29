@@ -103,7 +103,51 @@ ActiveWaiter.configure do |config|
 end
 ```
 
-Next, prefix any routes used in your application's layout with `main_app.`, e.g. `main_app.sign_in_path`.   
+Next, prefix any routes used in your application's layout with `main_app.`, e.g. `main_app.sign_in_path`.
 
-This is required because `ActiveWaiter` is a Rails Engine mounted into your application, 
+This is required because `ActiveWaiter` is a Rails Engine mounted into your application,
 and it doesn't know about the routes declared within your application.
+
+#### Exceptions
+
+When your job gets an exception, the error message will be written in the error message and passed along
+to the user. If your job has a method `suppress_exceptions` that returns a truthy value (default false),
+`ActiveWaiter::Job` will swallow the exception and not raise it - this means there will be no retry by
+`ActiveJob`.
+
+### Common Jobs
+
+#### ActiveWaiter::EnumerableJob
+
+If you need to wait, you're likely doing one thing slowly or many things. For the latter case, you can just
+`include ActiveWaiter::EnumerableJob` and add a few interface methods
+
+``` ruby
+def before(*args); end # called once with arguments of `perform`
+def enumerable; [] end # an Enumerable interface
+def items_count; 1 end # called 0-n times, depending on enumerable
+def foreach(item); end # called 0-n times, depending on enumerable
+def after;         end # called once
+def result;        end # called once
+```
+
+Here's an example from our test code, that will generate an array of range `0...count` and return the sum
+of all the numbers
+
+``` ruby
+class LoopJob < ActiveJob::Base
+  include ActiveWaiter::EnumerableJob
+
+  attr_accessor :items_count, :enumerable, :result
+
+  def before(count)
+    @items_count = count
+    @enumerable = count.times
+    @result = 0
+  end
+
+  def foreach(item)
+    @result += item
+  end
+end
+```
