@@ -16,7 +16,7 @@ module ActiveWaiter
       def on_not_found(_data)
         case retries = params[:retries].to_i
         when 0..9
-          redirect_to url_for(params.merge(retries: retries + 1))
+          @retries = retries + 1
         else
           raise ActionController::RoutingError.new('Not Found')
         end
