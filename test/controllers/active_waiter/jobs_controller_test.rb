@@ -21,8 +21,20 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_non_existent
+    do_request id: "nosuchjob", download: 0
+    assert_equal 302, status
+    assert_equal "http://www.example.com/active_waiter/nosuchjob?download=0&retries=1", response.location
+  end
+
+  def test_show_non_existent_retries_9
+    do_request id: "nosuchjob", download: 1, retries: "9"
+    assert_equal 302, status
+    assert_equal "http://www.example.com/active_waiter/nosuchjob?download=1&retries=10", response.location
+  end
+
+  def test_show_non_existent_retries_10
     assert_raises ActionController::RoutingError do
-      do_request id: "nosuchjob"
+      do_request id: "nosuchjob", download: 2, retries: "10"
     end
   end
 
