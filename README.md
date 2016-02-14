@@ -37,7 +37,7 @@ def index
     format.html
     format.pdf {
       uid = ActiveWaiter.enqueue(ExportPdfJob, @things, current_user)
-      redirect_to active_waiter_path(uid)
+      redirect_to active_waiter_path(id: uid)
     }
   end
 end
@@ -45,13 +45,13 @@ end
 
 ``` ruby
 # routes.rb
-mount ActiveWaiter::Engine => "/active_waiter(/:id)"
+mount ActiveWaiter::Engine => "/active_waiter"
 ```
 
 When the job completes, the user will be redirected to the `url` returned by the job. However, if you want the user to be presented with a download link, add `download: 1` params instead
 
 ``` ruby
-redirect_to active_waiter_path(uid, download: 1)
+redirect_to active_waiter_path(id: uid, download: 1)
 ```
 
 ![active_waiter mov](https://cloud.githubusercontent.com/assets/473/7785141/c4667734-01b4-11e5-8974-3a3b00b3a4b6.gif)
