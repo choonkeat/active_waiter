@@ -108,6 +108,29 @@ Next, prefix any routes used in your application's layout with `main_app.`, e.g.
 This is required because `ActiveWaiter` is a Rails Engine mounted into your application,
 and it doesn't know about the routes declared within your application.
 
+#### Changing the shared cache
+
+For deploying in production environments, `ActiveWaiter` requires a shared cache to
+track the status of downloads. By default it uses the Rails cache. If you want to
+use something else other than the Rails cache like redis for example, you may specify
+your own implementation:
+
+```ruby
+class RedisStore
+  def write(uid, value)
+    $redis.set("active_waiter:#{uid}", value)
+  end
+
+  def read(uid)
+    $redis.get("active_waiter:#{uid}")
+  end
+end
+
+ActiveWaiter.configure do |config|
+  config.store = RedisStore.new
+end
+```
+
 #### Exceptions
 
 When your job gets an exception, the error message will be written in the error message and passed along

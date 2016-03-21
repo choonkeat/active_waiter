@@ -1,4 +1,5 @@
 require "active_waiter/engine"
+require "active_waiter/store"
 require "active_waiter/configuration"
 require "active_waiter/job"
 require "active_waiter/enumerable_job"
@@ -17,11 +18,11 @@ module ActiveWaiter
     end
 
     def write(uid, value)
-      Rails.cache.write("active_waiter:#{uid}", value)
+      ActiveWaiter.configuration.store.write(uid, value)
     end
 
     def read(uid)
-      Rails.cache.read("active_waiter:#{uid}")
+      ActiveWaiter.configuration.store.read(uid)
     end
   end
 end
