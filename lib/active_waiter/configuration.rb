@@ -12,6 +12,10 @@ module ActiveWaiter
   end
 
   class Configuration
-    attr_accessor :layout
+    attr_accessor :layout, :store
+
+    def initialize
+      @store = ActiveWaiter::Store.new
+    end
   end
 end
