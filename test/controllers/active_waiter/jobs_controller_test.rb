@@ -104,7 +104,7 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   private
 
     def do_request(params)
-      get '/active_waiter', params
+      get '/active_waiter', params: params
     end
 
     def uid

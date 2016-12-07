@@ -1,3 +1,3 @@
 <script>
-  setTimeout(function() { window.location.href = <%= url_for(params.merge(retries: @retries)).to_json.html_safe %>; }, 2000);
+  setTimeout(function() { window.location.href = <%= url_for(params.permit!.merge(retries: @retries)).to_json.html_safe %>; }, 2000);
 </script>
