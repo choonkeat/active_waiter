@@ -3,6 +3,7 @@ require_dependency "active_waiter/application_controller"
 module ActiveWaiter
   class JobsController < ApplicationController
     def show
+      @retries = nil
       data = ActiveWaiter.read(params[:id])
       return on_not_found(data) unless data.respond_to?(:[])
       return on_error(data)     if data[:error]
