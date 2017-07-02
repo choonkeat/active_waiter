@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## Unreleased
+## 0.3.4
+
+- Support Rails 5.1
+
+## 0.3.0
 
 - Add ActiveWaiter::EnumerableJob as template for jobs that loop through resultset
 
