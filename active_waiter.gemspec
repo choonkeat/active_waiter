@@ -18,10 +18,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = "~> 2.0"
 
-  s.add_dependency "rails", ">= 4.2", "< 5.1"
+  s.add_dependency "rails", ">= 4.2"
 
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-minitest"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "rails-controller-testing"
+  s.add_development_dependency "appraisal"
 end
