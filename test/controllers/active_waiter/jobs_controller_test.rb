@@ -104,7 +104,11 @@ class ActiveWaiter::JobsControllerTest < ActionDispatch::IntegrationTest
   private
 
     def do_request(params)
-      get '/active_waiter', params: params
+      if Rails::VERSION::MAJOR < 5
+        get '/active_waiter', params
+      else
+        get '/active_waiter', params: params
+      end
     end
 
     def uid
